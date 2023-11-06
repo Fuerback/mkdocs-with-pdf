@@ -31,7 +31,7 @@ class HeadlessChromeDriver(object):
             self.output_dir = "./img_out"
             # Generate a puppeteerConfigFile.json file and add configuration to it.
             with open("puppeteerConfigFile.json", "w") as f:
-                f.write('{"executablePath": "/usr/bin/chromium"}')
+                f.write('{"executablePath": "/usr/bin/chromium --no-sandbox"}')
 
             # Create the output directory if it does not exist.
             if not os.path.exists(self.output_dir):
