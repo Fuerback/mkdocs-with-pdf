@@ -29,6 +29,9 @@ class HeadlessChromeDriver(object):
             mermaid_matches = re.findall(mermaid_regex, html, flags=re.DOTALL)
              # Add a member variable for the output directory.
             self.output_dir = "./img_out"
+            # Generate a puppeteerConfigFile.json file and add configuration to it.
+            with open("puppeteerConfigFile.json", "w") as f:
+                f.write('{"args": ["--no-sandbox"]}')
 
             # Create the output directory if it does not exist.
             if not os.path.exists(self.output_dir):
@@ -48,7 +51,7 @@ class HeadlessChromeDriver(object):
 
                     self._logger.info("Before mmdc command.")
                     # Convert the Mermaid diagram to an image using mmdc.
-                    command = f"mmdc -i {mermaid_file.name} -o {image_filename} -b transparent"
+                    command = f"mmdc --puppeteerConfigFile puppeteerConfigFile.json -i {mermaid_file.name} -o {image_filename} -b transparent"
                     os.system(command)
 
                     # Replace the Mermaid code with the image in the HTML string.
